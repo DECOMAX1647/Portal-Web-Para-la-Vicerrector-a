@@ -1,0 +1,443 @@
+/* Estilos generales del portal: colores, cabecera, botones, tarjetas y modal. */
+
+/* Colores y medidas generales */
+:root {
+  --fondo:        #151413;
+  --fondo-2:      #1c1a19;
+  --superficie:   #232120;
+  --superficie-2: #2e2b29;
+  --borde:        #3d3936;
+  --borde-2:      #2a2725;
+
+  --texto:   #ffffff;
+  --texto-2: #cfc9c4;
+  --texto-3: #948d88;
+
+  --rojo:           #c9302c;
+  --rojo-claro:     #e2574f;
+  --rojo-texto:     #ff8b82;
+  --amarillo:       #ffcc00;
+  --amarillo-texto: #ffd84d;
+
+  --azul-bandera: #00247d;
+  --rojo-bandera: #cf142b;
+
+  --sombra:       0 12px 34px rgb(0 0 0 / 0.55);
+  --sombra-suave: 0 2px 10px rgb(0 0 0 / 0.45);
+  --radio:        0.35rem;
+  --radio-sm:     0.2rem;
+  --ancho-max:    1200px;
+
+  --fuente:        "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --fuente-titulo: "Merriweather", Georgia, serif;
+
+  /* Color de los enlaces (cambia en modo claro) */
+  --enlace:       var(--amarillo);
+  --enlace-hover: var(--amarillo-texto);
+
+  /* Alias que usa la pantalla de acceso */
+  --fondo-1:        var(--superficie-2);
+  --fondo-3:        var(--fondo);
+  --texto-suave:    var(--texto-2);
+  --texto-tenue:    var(--texto-3);
+  --campo-fondo:    var(--fondo-2);
+  --campo-foco:     var(--superficie-2);
+  --amarillo-claro: var(--amarillo-texto);
+}
+
+/* Estilos base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--fuente);
+  color: var(--texto);
+  line-height: 1.55;
+  min-height: 100vh;
+  background-color: var(--fondo);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--enlace); text-decoration: none; transition: color .15s ease; }
+a:hover { color: var(--enlace-hover); }
+img { display: block; max-width: 100%; }
+
+:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 2px; border-radius: 4px; }
+
+/* Oculta el texto pero lo deja disponible para lectores de pantalla */
+.sr-solo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 1rem 1rem 2.75rem;
+}
+
+/* Barra superior */
+.barra-superior {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1.25rem;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--texto-3);
+  background-color: var(--fondo-2);
+  border: 1px solid var(--borde-2);
+  border-bottom: 0;
+  border-radius: var(--radio-sm) var(--radio-sm) 0 0;
+}
+
+/* Cabecera */
+.cabecera {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.1rem;
+  padding: 1.1rem 1.35rem;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 0 0 var(--radio) var(--radio);
+  box-shadow: var(--sombra);
+}
+/* Franja tricolor arriba (amarillo, azul y rojo) */
+.cabecera::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background-image: linear-gradient(
+    to right,
+    var(--amarillo) 0 33.33%,
+    var(--azul-bandera) 33.33% 66.66%,
+    var(--rojo-bandera) 66.66% 100%
+  );
+}
+.cabecera-logo { height: 3.25rem; width: auto; object-fit: contain; }
+.cabecera-texto { min-width: 0; }
+.cabecera-texto h1 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.3rem, 3vw, 2.1rem);
+  line-height: 1.15;
+  color: var(--texto);
+  max-width: 34ch;
+}
+.cabecera-texto .subtitulo { font-size: 0.83rem; color: var(--texto-2); }
+
+/* Navegación */
+.navegacion { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; margin-left: auto; }
+.enlace-menu {
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radio-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--texto-2);
+}
+.enlace-menu:hover { background-color: var(--superficie-2); color: var(--texto); }
+.enlace-menu.activo {
+  color: var(--texto);
+  background-color: var(--superficie-2);
+  box-shadow: inset 0 -2px 0 var(--rojo);
+}
+
+.acciones-cuenta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-left: auto; }
+
+.cabecera-portal { flex-direction: column; align-items: stretch; }
+.cabecera-fila { display: flex; flex-wrap: wrap; align-items: center; gap: 0.9rem 1.1rem; }
+.cabecera-portal .cabecera-fila:last-child { padding-top: 0.9rem; border-top: 1px solid var(--borde-2); }
+.cabecera-portal .navegacion { margin-left: 0; }
+
+/* Botones */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.05rem;
+  border: 1px solid transparent;
+  border-radius: var(--radio-sm);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .08s ease;
+}
+.boton i { font-size: 1.15rem; flex: none; }
+.boton:active { transform: scale(0.985); }
+
+.boton-primario { background-color: var(--rojo); color: #fff; }
+.boton-primario:hover { background-color: var(--rojo-claro); color: #fff; }
+
+.boton-fantasma { background-color: transparent; border-color: var(--borde); color: var(--texto); }
+.boton-fantasma:hover { background-color: var(--superficie-2); border-color: var(--amarillo); color: var(--texto); }
+
+.boton-pequeno { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+
+/* Tarjetas */
+.tarjeta {
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.25rem;
+  box-shadow: var(--sombra-suave);
+}
+.tarjeta h3 { font-family: var(--fuente-titulo); font-size: 1.02rem; color: var(--texto); margin-bottom: 0.4rem; }
+.tarjeta p { font-size: 0.9rem; color: var(--texto-2); }
+
+/* Etiquetas */
+.etiqueta {
+  display: inline-block;
+  padding: 0.18rem 0.6rem;
+  border-radius: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.etiqueta-rojo { background-color: rgb(201 48 44 / 0.18); color: var(--rojo-texto); border: 1px solid rgb(201 48 44 / 0.35); }
+.etiqueta-amarillo { background-color: rgb(255 204 0 / 0.16); color: var(--amarillo-texto); border: 1px solid rgb(255 204 0 / 0.32); }
+.etiqueta-blanco { background-color: rgb(255 255 255 / 0.12); color: #ffffff; border: 1px solid rgb(255 255 255 / 0.3); }
+
+/* Secciones con título */
+.seccion { margin-top: 2.25rem; }
+.cabecera-seccion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.1rem;
+}
+.titulo-seccion { font-family: var(--fuente-titulo); font-size: 1.35rem; color: var(--texto); }
+.subtitulo-seccion { font-size: 0.9rem; color: var(--texto-2); }
+
+/* Pie de página */
+.pie {
+  margin-top: 2rem;
+  padding: 1.1rem 1.25rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--texto-3);
+  background-color: var(--fondo-2);
+  border: 1px solid var(--borde-2);
+  border-radius: var(--radio);
+}
+.pie strong { color: var(--texto-2); }
+
+/* Modal de confirmación (cerrar sesión). Se muestra con la clase "visible". */
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+.modal.visible { display: flex; }
+
+.modal-capa {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(5 4 3 / 0.75);
+  backdrop-filter: blur(3px);
+  animation: aparecer-capa .18s ease;
+}
+.modal-caja {
+  position: relative;
+  width: 100%;
+  max-width: 24rem;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 0.4rem;
+  box-shadow: var(--sombra);
+  animation: aparecer-caja .2s ease;
+}
+.modal-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 0.9rem;
+  color: var(--rojo-texto);
+  background-color: rgb(201 48 44 / 0.15);
+  border-radius: 999px;
+}
+.modal-icono i { font-size: 1.7rem; }
+.modal-caja h3 { font-family: var(--fuente-titulo); font-size: 1.15rem; color: var(--texto); }
+.modal-caja p { margin-top: 0.4rem; font-size: 0.9rem; color: var(--texto-2); }
+.modal-acciones { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; margin-top: 1.3rem; }
+
+@keyframes aparecer-capa { from { opacity: 0; } to { opacity: 1; } }
+@keyframes aparecer-caja {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Aviso flotante que se usa en el panel */
+.aviso {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 60;
+  transform: translateX(-50%) translateY(120%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: calc(100% - 2rem);
+  padding: 0.8rem 1.1rem;
+  font-size: 0.88rem;
+  color: var(--texto);
+  background-color: var(--superficie-2);
+  border: 1px solid var(--borde);
+  border-radius: 0.4rem;
+  box-shadow: var(--sombra);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .25s ease, opacity .25s ease;
+}
+.aviso.visible { transform: translateX(-50%) translateY(0); opacity: 1; }
+.aviso i { font-size: 1.1rem; color: var(--amarillo); flex: none; }
+.aviso.error { border-color: var(--rojo); }
+.aviso.error i { color: var(--rojo-texto); }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 720px) {
+  .cabecera { justify-content: center; text-align: center; }
+  .cabecera-texto { text-align: center; }
+  .cabecera-texto h1 { max-width: none; }
+  .cabecera-fila { justify-content: center; }
+  .navegacion,
+  .acciones-cuenta { margin-left: 0; }
+  .navegacion { width: 100%; justify-content: center; }
+  .acciones-cuenta { width: 100%; justify-content: center; }
+}
+
+/* ==================================================================
+   Letra más grande y legible (pensada también para adultos mayores)
+   ================================================================== */
+html { font-size: 17px; }
+body { line-height: 1.65; }
+
+.barra-superior { font-size: 0.82rem; }
+.cabecera-texto .subtitulo { font-size: 0.92rem; }
+.enlace-menu { padding: 0.62rem 1rem; font-size: 1.08rem; }
+.boton { font-size: 1rem; }
+.boton-pequeno { font-size: 0.9rem; }
+.etiqueta { font-size: 0.82rem; }
+.titulo-seccion { font-size: 1.45rem; }
+.subtitulo-seccion { font-size: 0.98rem; }
+.tarjeta h3 { font-size: 1.05rem; }
+.tarjeta p { font-size: 0.98rem; }
+.pie { font-size: 0.88rem; }
+.modal-caja p { font-size: 1rem; }
+.aviso { font-size: 0.95rem; }
+
+/* El panel va todavía más grande */
+html.panel-html { font-size: 19px; }
+.contenedor-panel { max-width: 1560px; }
+
+/* Botón para cambiar de tema */
+.boton-tema { gap: 0.45rem; }
+.boton-tema i { font-size: 1.15rem; color: var(--amarillo); }
+.boton-tema-flotante {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 20;
+  background-color: var(--superficie);
+  box-shadow: var(--sombra-suave);
+}
+
+/* ==================================================================
+   Modo claro
+   ================================================================== */
+[data-tema="claro"] {
+  --fondo:        #f5f1ec;
+  --fondo-2:      #ebe4dc;
+  --superficie:   #ffffff;
+  --superficie-2: #f3ede6;
+  --borde:        #cfc4b8;
+  --borde-2:      #e3d9cf;
+
+  --texto:   #1c1815;
+  --texto-2: #403a35;
+  --texto-3: #645c55;
+
+  --rojo:           #b3261e;
+  --rojo-claro:     #c93b32;
+  --rojo-texto:     #9c1c16;
+  --amarillo:       #c99400;
+  --amarillo-texto: #6f5200;
+
+  --enlace:       #7a5a00;
+  --enlace-hover: #5c4300;
+
+  --sombra:       0 12px 30px rgb(70 50 40 / 0.16);
+  --sombra-suave: 0 2px 8px rgb(70 50 40 / 0.10);
+}
+
+/* La etiqueta blanca debe seguir viéndose sobre fondo claro */
+[data-tema="claro"] .etiqueta-blanco {
+  background-color: rgb(28 24 21 / 0.07);
+  color: var(--texto);
+  border-color: rgb(28 24 21 / 0.2);
+}
+
+[data-tema="claro"] .modal-capa {
+  background-color: rgb(30 20 15 / 0.5);
+}
+
+/* Íconos amarillos: un tono más oscuro para que se lean */
+[data-tema="claro"] .boton-tema i,
+[data-tema="claro"] .lista-funciones i,
+[data-tema="claro"] .icono-amarillo,
+[data-tema="claro"] .archivo i,
+[data-tema="claro"] .elemento-icono.amarillo,
+[data-tema="claro"] .aviso i {
+  color: var(--amarillo-texto);
+}
+
+[data-tema="claro"] .estadistica-valor.amarillo {
+  color: var(--amarillo-texto);
+}

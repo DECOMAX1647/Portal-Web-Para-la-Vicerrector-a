@@ -1,0 +1,284 @@
+/* Panel de administración. Pestañas con radios y letra grande.
+   El tamaño base se sube en tema.css (html.panel-html). */
+
+/* Estructura del panel */
+.panel {
+  display: grid;
+  grid-template-columns: 19rem minmax(0, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+/* Radios ocultos: controlan las pestañas sin ocupar una celda del grid */
+.radio-vista {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Menú lateral (pestañas) */
+.menu-lateral {
+  align-self: start;
+  overflow: hidden;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-suave);
+}
+.menu-titulo {
+  padding: 1rem 1.35rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texto-3);
+  border-bottom: 1px solid var(--borde-2);
+}
+.opcion-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.05rem 1.35rem;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--texto-2);
+  border-bottom: 1px solid var(--borde-2);
+  cursor: pointer;
+  transition: background-color .15s ease, color .15s ease;
+}
+.opcion-menu i { font-size: 1.35rem; flex: none; }
+.opcion-menu:last-child { border-bottom: 0; }
+.opcion-menu:hover { background-color: var(--superficie-2); color: var(--texto); }
+
+#vista-dashboard:checked ~ .menu-lateral [for="vista-dashboard"],
+#vista-repo:checked ~ .menu-lateral [for="vista-repo"],
+#vista-anuncios:checked ~ .menu-lateral [for="vista-anuncios"],
+#vista-bitacora:checked ~ .menu-lateral [for="vista-bitacora"],
+#vista-perfil:checked ~ .menu-lateral [for="vista-perfil"] {
+  color: #fff;
+  background-color: var(--rojo);
+}
+#vista-dashboard:focus-visible ~ .menu-lateral [for="vista-dashboard"],
+#vista-repo:focus-visible ~ .menu-lateral [for="vista-repo"],
+#vista-anuncios:focus-visible ~ .menu-lateral [for="vista-anuncios"],
+#vista-bitacora:focus-visible ~ .menu-lateral [for="vista-bitacora"],
+#vista-perfil:focus-visible ~ .menu-lateral [for="vista-perfil"] {
+  outline: 3px solid var(--amarillo);
+  outline-offset: -3px;
+}
+
+/* Paneles de contenido */
+.contenido {
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 2.1rem 2.2rem;
+  box-shadow: var(--sombra-suave);
+  min-height: 540px;
+  min-width: 0;
+}
+
+/* La columna de contenido nunca debe empujar el panel fuera de la pantalla. */
+.vista, .lista, .formulario-admin, .fila-formulario, .campo { min-width: 0; }
+.contenido input, .contenido select, .contenido textarea { max-width: 100%; }
+.elemento-datos h4 { overflow-wrap: anywhere; }
+.vista { display: none; }
+#vista-dashboard:checked ~ .contenido #panel-dashboard,
+#vista-repo:checked ~ .contenido #panel-repo,
+#vista-anuncios:checked ~ .contenido #panel-anuncios,
+#vista-bitacora:checked ~ .contenido #panel-bitacora,
+#vista-perfil:checked ~ .contenido #panel-perfil { display: block; }
+
+.contenido h2 {
+  font-family: var(--fuente-titulo);
+  font-size: 1.65rem;
+  line-height: 1.2;
+  color: var(--texto);
+}
+.contenido .descripcion {
+  margin: 0.45rem 0 1.6rem;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  color: var(--texto-2);
+}
+
+/* Estadísticas del Dashboard */
+.estadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+}
+.estadistica {
+  padding: 1.4rem 1.5rem;
+  background-color: var(--fondo-2);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+.estadistica-valor {
+  font-family: var(--fuente-titulo);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--texto);
+}
+.estadistica-valor.rojo { color: var(--rojo-texto); }
+.estadistica-valor.amarillo { color: var(--amarillo); }
+.estadistica-etiqueta {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--texto-2);
+}
+
+/* Formularios */
+.formulario-admin { display: grid; gap: 1.2rem; }
+.fila-formulario { display: grid; gap: 1.2rem; grid-template-columns: 1fr 1fr; }
+
+.campo label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--texto-2);
+}
+.campo input,
+.campo textarea {
+  width: 100%;
+  padding: 0.9rem 1.05rem;
+  font: inherit;
+  font-size: 1.02rem;
+  line-height: 1.4;
+  color: var(--texto);
+  background-color: var(--fondo-2);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.campo textarea { min-height: 8rem; resize: vertical; }
+.campo select {
+  width: 100%;
+  padding: 0.9rem 1.05rem;
+  font: inherit;
+  font-size: 1.02rem;
+  line-height: 1.4;
+  color: var(--texto);
+  background-color: var(--fondo-2);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  outline: none;
+}
+.campo select:focus {
+  border-color: var(--amarillo);
+  box-shadow: 0 0 0 4px rgb(255 204 0 / 0.2);
+}
+.campo input::placeholder,
+.campo textarea::placeholder { color: var(--texto-3); }
+.campo input:focus,
+.campo textarea:focus {
+  border-color: var(--amarillo);
+  box-shadow: 0 0 0 4px rgb(255 204 0 / 0.2);
+}
+
+/* Casilla para subir el archivo */
+.archivo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: var(--fondo-2);
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio-sm);
+}
+.archivo i { font-size: 1.9rem; color: var(--amarillo); flex: none; }
+.archivo input[type="file"] { flex: 1; font-size: 0.95rem; color: var(--texto-2); }
+.archivo input[type="file"]::file-selector-button {
+  margin-right: 0.85rem;
+  padding: 0.6rem 1rem;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--texto);
+  background-color: var(--superficie-2);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  cursor: pointer;
+}
+.archivo-nombre { font-size: 0.92rem; color: var(--amarillo-texto); min-height: 1.2rem; }
+
+/* Listas de documentos y anuncios */
+.lista { display: grid; gap: 0.75rem; grid-template-columns: minmax(0, 1fr); }
+.elemento {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1.05rem 1.2rem;
+  background-color: var(--fondo-2);
+  border: 1px solid var(--borde-2);
+  border-radius: var(--radio-sm);
+}
+.elemento-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  flex: none;
+  border-radius: var(--radio-sm);
+  color: var(--rojo-texto);
+  background-color: rgb(201 48 44 / 0.15);
+}
+.elemento-icono.amarillo { color: var(--amarillo); background-color: rgb(255 204 0 / 0.12); }
+.elemento-icono i { font-size: 1.45rem; }
+.elemento-datos { min-width: 0; flex: 1; }
+.elemento-datos h4 { font-size: 1.02rem; font-weight: 600; color: var(--texto); }
+.elemento-datos p {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: var(--texto-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.elemento-acciones { margin-left: auto; display: flex; gap: 0.4rem; }
+.elemento-acciones form { margin: 0; }
+.contenido .boton-pequeno { padding: 0.55rem 0.9rem; font-size: 0.9rem; }
+
+/* La bitácora puede ocupar dos líneas sin cortar el texto. */
+.bitacora .elemento-datos p { white-space: normal; }
+
+.boton-peligro {
+  background-color: transparent;
+  border-color: rgb(201 48 44 / 0.5);
+  color: var(--rojo-texto);
+}
+.boton-peligro:hover { background-color: rgb(201 48 44 / 0.15); color: var(--rojo-texto); }
+
+.subcabecera {
+  margin: 2rem 0 1rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--borde-2);
+  font-family: var(--fuente-titulo);
+  font-size: 1.3rem;
+  color: var(--texto);
+}
+
+/* Ajustes de campos y del perfil */
+.campo-corto { max-width: 14rem; }
+.tarjeta-perfil { max-width: 38rem; }
+.tarjeta-perfil h3 { font-size: 1.35rem; }
+.tarjeta-perfil p { font-size: 1rem; }
+.perfil-linea { margin-top: 0.75rem; }
+
+/* Pantallas pequeñas */
+@media (max-width: 900px) {
+  .panel { grid-template-columns: 1fr; }
+  .fila-formulario { grid-template-columns: 1fr; }
+  .menu-lateral { display: flex; flex-wrap: wrap; }
+  .menu-titulo { width: 100%; }
+  .opcion-menu { flex: 1 1 auto; justify-content: center; border-bottom: 0; }
+  .contenido { padding: 1.5rem 1.25rem; }
+}

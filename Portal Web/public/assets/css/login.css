@@ -1,0 +1,218 @@
+/* Inicio de sesión. Usa las variables y el tema definidos en tema.css. */
+
+/* Degradado de fondo */
+.fondo-login {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--fondo-1),
+    var(--fondo-2),
+    var(--fondo-3)
+  );
+}
+
+/* Centra la tarjeta en la pantalla */
+.contenedor-login {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2.5rem 1.25rem;
+}
+.columna-login { width: 100%; max-width: 30rem; }
+
+/* Tarjeta del login */
+.tarjeta-login {
+  position: relative;
+  overflow: hidden;
+  padding: 2.25rem 2rem;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 0.7rem;
+  box-shadow: var(--sombra);
+}
+/* Franja tricolor arriba (amarillo, azul y rojo) */
+.tarjeta-login::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background-image: linear-gradient(
+    to right,
+    var(--amarillo) 0 33.33%,
+    var(--azul-bandera) 33.33% 66.66%,
+    var(--rojo-bandera) 66.66% 100%
+  );
+}
+@media (min-width: 640px) {
+  .tarjeta-login { padding: 2.75rem 2.5rem; }
+}
+
+.logo { display: flex; justify-content: center; margin-bottom: 1.35rem; }
+.logo img { width: 5.5rem; height: 5.5rem; object-fit: contain; }
+
+.titulo-login {
+  font-family: var(--fuente-titulo);
+  font-size: 1.55rem;
+  line-height: 1.25;
+  text-align: center;
+}
+.texto-bienvenida {
+  margin-top: 0.35rem;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--texto-2);
+}
+
+.divisor { margin: 1.6rem 0; border: 0; border-top: 1px solid var(--borde); }
+
+/* Formulario */
+.formulario-login { display: flex; flex-direction: column; gap: 1.35rem; }
+
+/* Mensaje cuando el usuario o la contraseña están incorrectos */
+.mensaje-error {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  color: #ffb4ae;
+  background-color: rgb(207 20 43 / 0.15);
+  border: 1px solid var(--rojo-bandera);
+  border-radius: 0.5rem;
+}
+[data-tema="claro"] .mensaje-error {
+  color: #8c1d18;
+  background-color: rgb(179 38 30 / 0.08);
+}
+
+/* Campos de texto */
+.grupo-entrada label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--texto-2);
+}
+
+.input-con-icono { position: relative; }
+
+.campo-texto {
+  width: 100%;
+  padding: 0.9rem 1.1rem 0.9rem 3rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--texto);
+  background-color: var(--campo-fondo);
+  border: 1px solid var(--borde);
+  border-radius: 0.45rem;
+  outline: none;
+  transition: border-color .15s, background-color .15s, box-shadow .15s;
+}
+.campo-texto::placeholder { color: var(--texto-3); }
+.campo-texto:focus {
+  border-color: var(--rojo);
+  background-color: var(--campo-foco);
+  box-shadow: 0 0 0 4px rgb(201 48 44 / 0.25);
+}
+/* Deja espacio al botón del ojo */
+.campo-clave { padding-right: 3.2rem; }
+
+.icono-campo {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--texto-3);
+  pointer-events: none;
+}
+.campo-texto:focus + .icono-campo { color: var(--rojo-claro); }
+
+.boton-ojo {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.55rem;
+  font-size: 1.2rem;
+  background: none;
+  border: 0;
+  border-radius: 0.3rem;
+  color: var(--texto-3);
+  cursor: pointer;
+}
+.boton-ojo:hover { color: var(--texto); }
+.boton-ojo:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--rojo); }
+
+/* Clase que usa login.js para alternar los íconos del ojo */
+.oculto { display: none !important; }
+
+.opciones-login {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.9rem;
+}
+.recordarme {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.95rem;
+  color: var(--texto-2);
+  cursor: pointer;
+}
+.recordarme input { width: 1.15rem; height: 1.15rem; accent-color: var(--rojo); }
+
+.enlace-olvido {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--enlace);
+  text-decoration: none;
+}
+.enlace-olvido:hover { color: var(--enlace-hover); }
+
+/* Botón de ingreso */
+.boton-ingresar {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: var(--rojo);
+  border: 0;
+  border-radius: 0.45rem;
+  cursor: pointer;
+  transition: background-color .15s, transform .08s;
+}
+.boton-ingresar:hover { background-color: var(--rojo-claro); }
+.boton-ingresar:focus-visible { outline: none; box-shadow: 0 0 0 4px rgb(201 48 44 / 0.35); }
+.boton-ingresar:active { transform: scale(0.99); }
+
+.nota-seguridad {
+  margin-top: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--texto-3);
+}
+.pie-pagina {
+  margin-top: 1.6rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--texto-3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
